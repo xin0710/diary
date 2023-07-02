@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabbit.diary.dao.BlogMapper">
+
+    <select id="getBlogsStatistics" resultType="java.util.HashMap">
+        SELECT
+            date_format(str_to_date(create_date,'%Y-%m-%d %H:%i:%s'),'%Y年%m月%d日') date,
+            count(1) total,
+            date_format(str_to_date(create_date,'%Y-%m-%d %H:%i:%s'),'%Y-%m-%d')date2
+        FROM
+            tbl_syn_blog
+        where user_id = #{userId}
+        GROUP BY date,date2
+    </select>
+</mapper>
